@@ -23,26 +23,24 @@ const formSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         required: [true, "Phone number is required !"],
-        unique: true,
         trim: true,
-        // match: [/^\+?[1-9]\d{9,14}$/, "Please enter a valid phone number"]
+        match: [/^[6-9]\d{9}$/, "Please enter a valid phone number"]
     },
     plan: {
         type: String,
         enum: [
-            "personal",
-            "group",
-            "corporate",
-            "consultation"
+            "Personal 1-on-1 Sessions",
+            "Group Classes",
+            "Corporate Wellness Programs",
         ],
-        default:"consultation",
+        default: "Corporate Wellness Programs",
     },
-    message:{
-        type:String,
-        required:true
+    message: {
+        type: String,
+        required: true
     }
-},{timestamps:true})
+}, { timestamps: true })
 
-const formModel=mongoose.model("user-form",formSchema)
+const formModel = mongoose.model("user-form", formSchema)
 
-module.exports=formModel
+module.exports = formModel

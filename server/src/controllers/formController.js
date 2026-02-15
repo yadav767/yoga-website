@@ -1,24 +1,28 @@
 const formModel = require("../models/form.model")
-const {sendEmailToUser,sendEmailToInstructor} = require("../services/mail.service")
+const { sendEmailToUser, sendEmailToInstructor } = require("../services/mail.service")
 
 async function submitFormController(req, res) {
-    const { fullName, email, phoneNumber, plan, message } = req.body
+    const { fullName, email, phoneNumber, message, plan } = req.body
     try {
         const newUser = await formModel.create({
-            fullName, email, phoneNumber, plan, message
+            fullName, email, phoneNumber, message, plan
         })
-        
-        res.json({
-            message:"Mail send successfully !",
+
+        res.status(200).json({
+            message: "Mail send successfully !",
+            status: true,
             newUser
         })
         await sendEmailToInstructor(newUser)
         await sendEmailToUser(newUser)
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            satus: false,
+            message: "Failed to register ! please enter valid details ."
+        })
     }
 
 }
-module.exports={
+module.exports = {
     submitFormController
 }
