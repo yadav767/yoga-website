@@ -21,7 +21,7 @@ const Contact = () => {
     e.preventDefault();
     // Handle form submission
     try {
-      const response = await axios.post("http://localhost:3000/api/form/submit", formData)
+      const response = await axios.post("https://yoga-hq9u.onrender.com/api/form/submit", formData)
       if (response.data.status) {
         message.success(response.data.message)
         setFormData({ fullName: '', email: '', phoneNumber: '', message: '', plan: '' });
