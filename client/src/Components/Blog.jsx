@@ -27,6 +27,12 @@ const Blog = () => {
     }
   ]);
 
+  const [flippedIds, setFlippedIds] = useState({});
+
+  const toggleFlip = (id) => {
+    setFlippedIds((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   return (
     <section className="blog-section">
       <div className="container">
@@ -38,24 +44,58 @@ const Blog = () => {
         
         <div className="blog-grid">
           {posts.map((post) => (
-            <article key={post.id} className="blog-card">
-              <div className="blog-image">
-                {post.image ? (
-                  <img src={post.image} alt={post.title} />
-                ) : (
-                  <div className="blog-placeholder">
-                    <BookOpen size={48} />
+            <article key={post.id} className={`blog-card ${flippedIds[post.id] ? 'is-flipped' : ''}`}>
+              <div className="card-inner">
+                <div className="card-front">
+                  <div className="blog-image">
+                    {post.image ? (
+                      <img src={post.image} alt={post.title} />
+                    ) : (
+                      <div className="blog-placeholder">
+                        <BookOpen size={48} />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="blog-content">
-                <div className="blog-date">
-                  <Calendar size={16} />
-                  {post.date}
+                  <div className="blog-content">
+                    <div className="blog-date">
+                      <Calendar size={16} />
+                      {post.date}
+                    </div>
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                    <a
+                      href="#"
+                      className="blog-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFlip(post.id);
+                      }}
+                    >
+                      Read More <ChevronRight size={16} />
+                    </a>
+                  </div>
                 </div>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-                <a href="#" className="blog-link">Read More <ChevronRight size={16} /></a>
+
+                <div className="card-back">
+                  <div className="back-content">
+                    <h3>{post.title} — Details</h3>
+                    <p>
+                      This is the detailed view for the post. You can replace this text
+                      with any content. Lorem ipsum dolor sit amet, consectetur
+                      adipisicing elit. (Garbage details allowed per request.)
+                    </p>
+                    <p><strong>More info:</strong> Some extra dummy points and details.</p>
+                    <button
+                      className="blog-link-back"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFlip(post.id);
+                      }}
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
               </div>
             </article>
           ))}

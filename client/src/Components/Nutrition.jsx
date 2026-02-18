@@ -12,7 +12,7 @@ const Nutrition = () => {
         
         <div className="nutrition-content">
           <div className="nutrition-card">
-            <Leaf className="nutrition-icon" />
+            {/* <Leaf className="nutrition-icon" /> */}
             <h3>Sattvic Diet Principles</h3>
             <p>
               Embrace pure, wholesome foods that promote clarity, peace, and vitality. Learn the yogic approach 
@@ -21,7 +21,7 @@ const Nutrition = () => {
           </div>
           
           <div className="nutrition-card">
-            <Heart className="nutrition-icon" />
+            {/* <Heart className="nutrition-icon" /> */}
             <h3>Mindful Eating Practices</h3>
             <p>
               Develop awareness around your relationship with food. Understand how mindful eating reduces stress, 
@@ -30,7 +30,7 @@ const Nutrition = () => {
           </div>
           
           <div className="nutrition-card">
-            <Target className="nutrition-icon" />
+            {/* <Target className="nutrition-icon" /> */}
             <h3>Complete Lifestyle Balance</h3>
             <p>
               Integrate yogic principles into daily life through Achar (conduct), Vichar (thought), Ahar (diet), 
