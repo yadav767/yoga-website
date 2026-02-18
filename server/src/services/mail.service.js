@@ -28,12 +28,12 @@ const sendEmail = async (to, subject, text, html) => {
             from: `"Your Name" <${process.env.USER_GMAIL}>`, // sender address
             to, // list of receivers
             subject, // Subject line
-            text, // plain text body
+            text, // plain text body  
             html, // html body
         });
-        // console.log(info);
-        // console.log('Message sent: %s', info.messageId);
-        // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        console.log(info);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (error) {
         console.error('Error sending email:', error);
     }
@@ -105,7 +105,7 @@ function sendEmailToUser(formData) {
 }
 
 function sendEmailToInstructor(formData) {
-    const to="yyadavrrahul@gmail.com"
+    const to="chaurasiyagulshankumar218@gmail.com"
     const subject = " New Yoga Registration";
     const text = `
         New Yoga Registration Received
