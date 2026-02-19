@@ -3,7 +3,6 @@ const mongoose = require("mongoose")
 const introSchema = new mongoose.Schema({
     url: {
         type: String,
-        required: true
     },
     thought1: {
         type: String,

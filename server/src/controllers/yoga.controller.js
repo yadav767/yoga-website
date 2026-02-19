@@ -1,15 +1,16 @@
-const { introModel, aboutModel, storyModel, techniqueModel, experienceModel, nutritionModel, blogModel } =require("../models/yoga.model")
+const { introModel, aboutModel, storyModel, techniqueModel, experienceModel, nutritionModel, blogModel } = require("../models/yoga.model")
+const { v4: uuidv4 } = require('uuid');
+const uploadFile = require("../services/storage.service")
 
-
-async function getAllData(req,res){
+async function getAllData(req, res) {
     try {
-        const intros=await introModel.find();
-        const abouts=await aboutModel.find();
-        const stories=await storyModel.find();
-        const techniques=await techniqueModel.find();
-        const experiences=await experienceModel.find();
-        const nutritions=await nutritionModel.find(); 
-        const blogs=await blogModel.find();
+        const intros = await introModel.find();
+        const abouts = await aboutModel.find();
+        const stories = await storyModel.find();
+        const techniques = await techniqueModel.find();
+        const experiences = await experienceModel.find();
+        const nutritions = await nutritionModel.find();
+        const blogs = await blogModel.find();
 
         res.status(200).json({
             intros,
@@ -21,10 +22,43 @@ async function getAllData(req,res){
             blogs
         })
     } catch (error) {
-         res.status(500).send(error)
+        res.status(500).send(error)
     }
 }
 
-module.exports={
-    getAllData
+
+async function updateIntroController(req, res) {
+    const { thought1, thought2, _id } = req.body
+    const image = req.file
+
+    try {
+        let url = null
+        let updatedIntro = null
+        if (image) {
+            const response = await uploadFile(image.buffer, uuidv4())
+            url = response.url
+            console.log(url);
+            updatedIntro = await introModel.findOneAndUpdate({ _id: _id }, {
+                url, thought1, thought2
+            }, { returnDocument: "after" })
+        } else {
+            updatedIntro = await introModel.findOneAndUpdate({ _id: _id }, {
+                thought1, thought2
+            }, { returnDocument: "after" })
+        }
+
+
+        res.status(200).send({
+            data: updatedIntro,
+            success: true,
+            message: "Intro Updated successfully !"
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+
+module.exports = {
+    getAllData, updateIntroController
 }

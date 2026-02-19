@@ -3,8 +3,13 @@ import { Award, Leaf, BookOpen, User } from 'lucide-react';
 
 
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const About = () => {
+
+  const { data } = useSelector((state) => state.root)
+  const about = data.abouts[0]
+
   return (
     <section id="about" className="about-section">
       <div className="container">
@@ -16,7 +21,7 @@ const About = () => {
         <div className="about-grid">
           <div className="about-image">
             <div className="image-placeholder">
-              <img src="https://ik.imagekit.io/q0224i8bc/WhatsApp%20Image%202026-02-15%20at%205.39.40%20PM%20(1).jpeg" alt="" />
+              <img src={about.url} alt="" />
             </div>
           </div>
 
@@ -24,36 +29,18 @@ const About = () => {
             <h3>Rahul Shivshankar Yadav</h3>
             <p className="subtitle">Certified Yoga Instructor & Wellness Guide</p>
             <p className="bio">
-              I am a passionate yoga practitioner dedicated to teaching holistic wellbeing through yoga asanas,
-              pranayama, meditation, and yogic philosophies. For the past eight years, I have immersed myself
-              in yoga philosophies and advanced meditation practices with deep curiosity and disciplined commitment.
+              {about.para}
             </p>
-
             <div className="credentials-grid">
-              <div className="credential-card">
-                <Award className="credential-icon" />
-                <h4>900-Hour Certification</h4>
-                <p>Advanced Yoga Teacher from The Yoga Institute (2023)</p>
-              </div>
-
-              <div className="credential-card">
-                <Award className="credential-icon" />
-                <h4>Jason Crandell Certified</h4>
-                <p>Essential Applied Anatomy & Mastering Vinyasa Sequencing</p>
-              </div>
-
-              <div className="credential-card">
-                <BookOpen className="credential-icon" />
-                <h4>Psychology Student</h4>
-                <p>Currently pursuing Bachelor's Degree</p>
-              </div>
-
-              <div className="credential-card">
-                <Leaf className="credential-icon" />
-                <h4>Specialized Expertise</h4>
-                <p>Kriya Yoga, Hatha Yoga, Ashtanga Yoga, Advanced Pranayama</p>
-              </div>
+              {about.achievement.map((item, index) => (
+                <div className="credential-card" key={index}>
+                  <Award className="credential-icon" />
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                </div>
+              ))}
             </div>
+
           </div>
         </div>
       </div>

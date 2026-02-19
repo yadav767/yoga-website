@@ -13,17 +13,19 @@ import Loader from './Components/Loader'
 import { hideLoading, setLoading, setReloadData, setYogaData } from './redux/rootSclice'
 import axios from 'axios'
 import Admin from './Pages/Admin/Admin'
+import Login from './Pages/Login'
+import ProtectedRoute from './Components/ProtectedRoute'
 
 const App = () => {
   const { loading, reloadData, data } = useSelector((state) => state.root)
   const dispatch = useDispatch()
 
-  const hideNavbar = location.pathname === "/admin";
+  const hideNavbar = location.pathname === "/admin" || location.pathname === "/login";
+
   const getYogaData = async () => {
     try {
       dispatch(setLoading())
       const response = await axios.get("http://localhost:3000/api/yoga/get-all-data")
-      console.log(response.data);
       dispatch(setYogaData(response.data))
       dispatch(setReloadData())
       dispatch(hideLoading())
@@ -50,15 +52,21 @@ const App = () => {
       {loading ? <Loader /> : null}
       {data && (
         <div>
-          {!hideNavbar && <Navigation />} 
+          {!hideNavbar && <Navigation />}
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={!hideNavbar && <Login/>} />
             <Route path='/about' element={<About />} />
             <Route path='/experience' element={<Experience />} />
             <Route path='/offerings' element={<Offerings />} />
             <Route path='/blog' element={<Blog />} />
             <Route path='/contact' element={<Contact />} />
-            <Route path='/admin' element={<Admin />} />
+            <Route path='/admin' element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            } />
           </Routes>
         </div>
       )}
