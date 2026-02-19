@@ -8,7 +8,7 @@ async function loginController(req, res) {
 
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
-    res.cookie("token", user._id.toString(), { httpOnly: true });
+    res.cookie("token", user._id.toString(), { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 },);
     res.json({ success: true });
 }
 
