@@ -17,7 +17,6 @@ const introSchema = new mongoose.Schema({
 const aboutSchema = new mongoose.Schema({
     url: {
         type: String,
-        required: true
     },
     para: {
         type: String,

@@ -59,6 +59,40 @@ async function updateIntroController(req, res) {
 }
 
 
+//Update About controller
+async function updateAboutController(req, res) {
+    const { para, _id } = req.body
+    const achievement = typeof req.body.achievement === "string"
+        ? JSON.parse(req.body.achievement)
+        : req.body.achievement
+    const image = req.file
+
+    try {
+        let url = null
+        let updatedIntro = null
+        if (image) {
+            const response = await uploadFile(image.buffer, uuidv4())
+            url = response.url
+            updatedIntro = await aboutModel.findOneAndUpdate({ _id: _id }, {
+                para, achievement, url
+            }, { returnDocument: "after" })
+        } else {
+            updatedIntro = await aboutModel.findOneAndUpdate({ _id: _id }, {
+                para, achievement
+            }, { returnDocument: "after" })
+        }
+
+
+        res.status(200).send({
+            data: updatedIntro,
+            success: true,
+            message: "About Updated successfully !"
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
 module.exports = {
-    getAllData, updateIntroController
+    getAllData, updateIntroController, updateAboutController
 }
