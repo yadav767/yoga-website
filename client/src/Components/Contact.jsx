@@ -31,10 +31,10 @@ const Contact = () => {
           setSuccessMessage('');
         }, 3000);
       } else {
-        message.error("Please provide proper details !")
+        message.error("Email already sent using this email !")
       }
     } catch (error) {
-      message.error("Please provide proper details!")
+      message.error("Email already sent using this email !")
     }
 
 

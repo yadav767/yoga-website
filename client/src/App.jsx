@@ -15,6 +15,7 @@ import axios from 'axios'
 import Admin from './Pages/Admin/Admin'
 import Login from './Pages/Login'
 import ProtectedRoute from './Components/ProtectedRoute'
+import { message } from 'antd'
 
 const App = () => {
   const { loading, reloadData, data } = useSelector((state) => state.root)
@@ -25,12 +26,11 @@ const App = () => {
   const getYogaData = async () => {
     try {
       dispatch(setLoading())
-      const response = await axios.get("http://localhost:3000/api/yoga/get-all-data")
+      const response = await axios.get("https://yoga-hq9u.onrender.com/api/yoga/get-all-data")
       dispatch(setYogaData(response.data))
       dispatch(setReloadData())
       dispatch(hideLoading())
     } catch (error) {
-      console.log(error);
       dispatch(hideLoading())
     }
   }

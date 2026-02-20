@@ -1100,7 +1100,8 @@ section {
 
 .blog-image {
   width: 100%;
-  height: 250px;
+  height: 300px;
+  object-fit: cover;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
 }
 .blog-image img {

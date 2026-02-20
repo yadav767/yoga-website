@@ -11,7 +11,7 @@ const Login = () => {
         const username = e.target.username.value
         const password = e.target.password.value
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login", { username, password }, {
+            const response = await axios.post("https://yoga-hq9u.onrender.com/api/auth/login", { username, password }, {
                 withCredentials: true // sends cookies
             });
 

@@ -2,7 +2,7 @@ import { Button, Form, message, Upload } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { hideLoading, setLoading } from '../../redux/rootSclice';
+import { hideLoading, setLoading, setReloadData } from '../../redux/rootSclice';
 
 const AdminIntro = () => {
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const AdminIntro = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
+      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
@@ -20,13 +20,12 @@ const AdminIntro = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         message.success(response.data.message)
+        dispatch(setReloadData(true))
       } else {
         message.error("Failed to update Intro !")
       }
-      console.log(response);
     } catch (error) {
       dispatch(hideLoading())
-      console.log(error);
       message.error("Failed to update Intro !")
     }
   }

@@ -13,8 +13,8 @@ async function submitFormController(req, res) {
             status: true,
             newUser
         })
-        // await sendEmailToInstructor(newUser)
-        // await sendEmailToUser(newUser)
+        await sendEmailToInstructor(newUser)
+        await sendEmailToUser(newUser)
     } catch (error) {
         res.status(500).json({
             satus: false,

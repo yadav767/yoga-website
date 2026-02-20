@@ -31,7 +31,6 @@ const aboutSchema = new mongoose.Schema({
 const storySchema = new mongoose.Schema({
     url: {
         type: String,
-        required: true
     },
     challenge: {
         type: String,
@@ -46,7 +45,6 @@ const storySchema = new mongoose.Schema({
 const techniqueSchema = new mongoose.Schema({
     image: {
         type: String,
-        required: true
     },
     heading: {
         type: String,
@@ -88,7 +86,6 @@ const nutritionSchema=new mongoose.Schema({
 const blogSchema=new mongoose.Schema({
     url:{
         type:String,
-        required:true
     },
     createdAt:{
         type:Date,

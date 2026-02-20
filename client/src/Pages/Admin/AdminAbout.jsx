@@ -27,7 +27,7 @@ const AdminAbout = () => {
       if (image) {
         formData.append("image", image)
       }
-      const response = await axios.post("http://localhost:3000/api/yoga/update-about", formData, {
+      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-about", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
@@ -35,7 +35,7 @@ const AdminAbout = () => {
       dispatch(hideLoading())
       if (response.data.success) {
         message.success(response.data.message)
-        dispatch(setReloadData())
+        dispatch(setReloadData(true))
       } else {
         message.error("Failed to update About !")
       }
@@ -53,7 +53,7 @@ const AdminAbout = () => {
       const updatedAchievements = achievements.map((a, idx) =>
         idx === selectedItemForEdit.idx ? { ...a, ...values } : a
       )
-      const response = await axios.post("http://localhost:3000/api/yoga/update-about", {
+      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-about", {
         _id: abouts._id,
         para: abouts.para,
         achievement: updatedAchievements
@@ -68,7 +68,6 @@ const AdminAbout = () => {
         message.error("Failed to update achievement!")
       }
     } catch (error) {
-      console.log(error);
       dispatch(hideLoading())
       message.error("Failed to update achievement!")
     }

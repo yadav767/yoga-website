@@ -13,11 +13,11 @@ import "../../Pages/Admin.css"
 
 
 const Admin = () => {
-    const navigate=useNavigate()
-    const {data}=useSelector((state) => state.root)
+    const navigate = useNavigate()
+    const { data } = useSelector((state) => state.root)
 
 
-     const items = [
+    const items = [
         {
             key: "1",
             label: "Intros",
@@ -30,29 +30,29 @@ const Admin = () => {
         },
         {
             key: "3",
-            label: "Exeriences",
-            children: <AdminExperience />,
+            label: "Story",
+            children: <AdminStory />,
         },
         {
             key: "4",
-            label: "Nutrition",
-            children: <AdminNutrition />,
-        },
-        {
-            key: "5",
-            label: "Blog",
-            children: <AdminBlog />,
-        },
-        {
-            key: "6",
             label: "Technique",
             children: <AdminTechnique />,
         },
         {
-            key: "7",
-            label: "Story",
-            children: <AdminStory />,
+            key: "5",
+            label: "Nutrition",
+            children: <AdminNutrition />,
         },
+        {
+            key: "6",
+            label: "Blog",
+            children: <AdminBlog />,
+        },
+        {
+            key: "7",
+            label: "Experience",
+            children: <AdminExperience />,
+        }
 
     ];
 
@@ -63,7 +63,7 @@ const Admin = () => {
             <div className='flex mt-2 justify-between  items-center  gap-10 '>
                 <div className='text-3xl text-black font-semibold'>
                     Yoga Admin
-                </div>  
+                </div>
                 <button className='px-5  py-2 bg-gray-300 active:scale-95 transition-all rounded cursor-pointer active:scale-95 border border-gray-700 px-4 py-2 transition-all text-xl text-black' onClick={() => navigate("/")}>Logout</button>
             </div>
 
@@ -71,7 +71,7 @@ const Admin = () => {
                 <div className=' text-xl pb-20 p-2 px-11 max-sm:px-2'>
                     <Tabs defaultActiveKey="1" items={items} />
                 </div>
-            )}  
+            )}
         </div>
     )
 }

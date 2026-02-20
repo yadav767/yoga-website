@@ -31,9 +31,6 @@ const sendEmail = async (to, subject, text, html) => {
             text, // plain text body  
             html, // html body
         });
-        console.log(info);
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (error) {
         console.error('Error sending email:', error);
     }
@@ -105,7 +102,7 @@ function sendEmailToUser(formData) {
 }
 
 function sendEmailToInstructor(formData) {
-    const to="chaurasiyagulshankumar218@gmail.com"
+    const to="yyadavrrahul@gmail.com"
     const subject = " New Yoga Registration";
     const text = `
         New Yoga Registration Received
