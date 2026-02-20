@@ -12,7 +12,7 @@ const AdminIntro = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
+      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
