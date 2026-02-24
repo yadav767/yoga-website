@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 // import AppRoutes from './Routes/AppRoutes'
 import Navigation from './Components/Navigation'
-import { BrowserRouter, Routes, useNavigate, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Home from './Pages/Home'
 import About from './Components/About'
@@ -26,7 +26,7 @@ const App = () => {
   const getYogaData = async () => {
     try {
       dispatch(setLoading())
-      const response = await axios.get("https://yoga-hq9u.onrender.com/api/yoga/get-all-data")
+      const response = await axios.get("http://localhost:3000/api/yoga/get-all-data")
       dispatch(setYogaData(response.data))
       dispatch(setReloadData())
       dispatch(hideLoading())

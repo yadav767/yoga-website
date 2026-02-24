@@ -29,7 +29,7 @@ const Navigation = () => {
       <div className="nav-container">
         <Link to="/" className="nav-logo">
           <Leaf size={28} />
-          <span>Yoga By Rahul</span>
+          <span>Evolve With Rahul</span>
         </Link>
         
         <div className={`nav-menu ${isOpen ? 'active' : ''}`}>

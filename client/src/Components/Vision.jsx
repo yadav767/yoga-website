@@ -1,4 +1,4 @@
-import {ChevronRight,Leaf, Target, User } from 'lucide-react';
+import {ChevronRight,Leaf, Target} from 'lucide-react';
 
 
 const Vision = () => {

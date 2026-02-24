@@ -10,6 +10,8 @@ import AdminTechnique from "./AdminTechnique";
 import AdminStory from "./AdminStory";
 
 import "../../Pages/Admin.css"
+import AdminPrice from "./AdminPrice";
+import AdminUserData from "./AdminUserData";
 
 
 const Admin = () => {
@@ -52,6 +54,17 @@ const Admin = () => {
             key: "7",
             label: "Experience",
             children: <AdminExperience />,
+        },
+        {
+            key: "8",
+            label: "Pricing",
+            children: <AdminPrice />,
+        }
+        ,
+        {
+            key: "9",
+            label: "Users",
+            children: <AdminUserData />,
         }
 
     ];

@@ -3,11 +3,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        type: 'OAuth2',
         user: process.env.USER_GMAIL,
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
+        pass: process.env.APP_PASSWORD 
     },
 });
 
@@ -25,12 +22,15 @@ transporter.verify((error, success) => {
 const sendEmail = async (to, subject, text, html) => {
     try {
         const info = await transporter.sendMail({
-            from: `"Your Name" <${process.env.USER_GMAIL}>`, // sender address
+            from: `"Evolve With Rahul" <${process.env.USER_GMAIL}>`, // sender address
             to, // list of receivers
             subject, // Subject line
             text, // plain text body  
             html, // html body
         });
+        console.log(info);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     } catch (error) {
         console.error('Error sending email:', error);
     }
@@ -39,13 +39,13 @@ const sendEmail = async (to, subject, text, html) => {
 
 function sendEmailToUser(formData) {
     const to = formData.email
-    const subject = "Welcome to Yoga By Rahul ";
+    const subject = "Welcome to Evolve With Rahul ";
     const text = `
-    Welcome to Yoga By Rahul!
+    Welcome to Evolve With Rahul!
 
     Dear ${formData.fullName},
 
-    Thank you for registering with Yoga By Rahul.
+    Thank you for registering with Evolve With Rahul.
 
     We are happy to have you in our yoga family.
     Our team will contact you soon regarding your selected plan.
@@ -53,7 +53,7 @@ function sendEmailToUser(formData) {
     Stay Healthy, Stay Calm 
 
     Regards,
-    Yoga By Rahul Team
+    Evolve With Rahul Team
 `;
     const html = `
 <div style="font-family: Arial, sans-serif; background:#f4f8f7; padding:30px;">
@@ -61,7 +61,7 @@ function sendEmailToUser(formData) {
   <div style="max-width:600px; margin:auto; background:white; border-radius:10px; padding:30px;">
     
     <h1 style="color:#2c7a7b; text-align:center;">
-       Yoga By Rahul
+       Evolve With Rahul
     </h1>
 
     <h2 style="color:#333;">
@@ -69,7 +69,7 @@ function sendEmailToUser(formData) {
     </h2>
 
     <p style="font-size:16px; color:#555; line-height:1.6;">
-      Thank you for registering with <b>Yoga By Rahul</b>.
+      Thank you for registering with <b>Evolve With Rahul</b>.
       <br/><br/>
       We are very happy to have you in our yoga community.
     </p>
@@ -90,7 +90,7 @@ function sendEmailToUser(formData) {
     </p>
 
     <p style="text-align:center; font-size:14px; color:#777;">
-      © 2026 Yoga By Rahul
+      © 2026 Evolve With Rahul
     </p>
 
   </div>
@@ -102,12 +102,12 @@ function sendEmailToUser(formData) {
 }
 
 function sendEmailToInstructor(formData) {
-    const to="yyadavrrahul@gmail.com"
+    const to = "yyadavrrahul@gmail.com"
     const subject = " New Yoga Registration";
     const text = `
         New Yoga Registration Received
 
-        A new user has registered on Yoga By Rahul website.
+        A new user has registered on Evolve With Rahul website.
 
         User Details:
           --------------------------------
@@ -119,7 +119,7 @@ function sendEmailToInstructor(formData) {
 
         Please contact the user as soon as possible.
 
-        Yoga By Rahul System
+        Evolve With Rahul System
         `;
     const html = `
         <div style="font-family: Arial, sans-serif; background:#f4f8f7; padding:30px;">
@@ -127,7 +127,7 @@ function sendEmailToInstructor(formData) {
         <div style="max-width:650px; margin:auto; background:white; border-radius:12px; padding:30px;">
     
         <h1 style="color:#2c7a7b; text-align:center;">
-            Yoga By Rahul
+            Evolve With Rahul
         </h1>
 
         <h2 style="color:#333;">
@@ -159,14 +159,14 @@ function sendEmailToInstructor(formData) {
     <hr style="margin:30px 0;"/>
 
     <p style="text-align:center; color:#777; font-size:14px;">
-      This is an automated email from Yoga By Rahul Website
+      This is an automated email from Evolve With Rahul Website
     </p>
 
   </div>
 </div>
 `;
-sendEmail(to, subject, text, html)
+    sendEmail(to, subject, text, html)
 
 }
 
-module.exports = {sendEmailToUser,sendEmailToInstructor};
+module.exports = { sendEmailToUser, sendEmailToInstructor };

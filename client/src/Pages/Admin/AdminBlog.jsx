@@ -13,20 +13,21 @@ const AdminBlog = () => {
   const { data } = useSelector((state) => state.root)
   const blogs = data.blogs
   const submitHandler = async (values) => {
+    setShowAddEditModel(false)
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
       let response
       if (selectedItemForEdit) {
-        response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-blog", { ...values, image, _id: selectedItemForEdit._id }, {
+        response = await axios.post("http://localhost:3000/api/yoga/update-blog", { ...values, image, _id: selectedItemForEdit._id }, {
           headers: { "Content-Type": "multipart/form-data" }
         })
       } else {
-        response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/add-blog", { ...values, image }, {
+        response = await axios.post("http://localhost:3000/api/yoga/add-blog", { ...values, image }, {
           headers: { "Content-Type": "multipart/form-data" }
         })
       }
-      dispatch(hideLoading())
+      
       if (response.data.success) {
         message.success(response.data.message)
         setShowAddEditModel(false);
@@ -35,6 +36,7 @@ const AdminBlog = () => {
         setSelectedItemForEdit(null)
       } else {
         message.error(response.data.message)
+        dispatch(hideLoading())
       }
     } catch (error) {
       dispatch(hideLoading())
@@ -46,7 +48,7 @@ const AdminBlog = () => {
   const onDelete = async (item) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/delete-blog", { _id: item._id })
+      const response = await axios.post("http://localhost:3000/api/yoga/delete-blog", { _id: item._id })
       dispatch(hideLoading())
       if (response.data.success) {
         message.success(response.data.message)
@@ -71,7 +73,7 @@ const AdminBlog = () => {
           setSelectedItemForEdit(null)
           setShowAddEditModel(true)
         }}
-          className='px-4 rounded active:scale-95 transition-all py-2 bg-green-600 text-black'>Add Experience</button>
+          className='px-4 rounded active:scale-95 transition-all py-2 bg-green-600 text-black'>Add Blog</button>
       </div>
       <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
         {blogs.map((blog, idx) => (
@@ -100,14 +102,14 @@ const AdminBlog = () => {
           <Modal
             footer={null}
             open={showAddEditModel}
-            title={selectedItemForEdit ? "Edit Project" : "Add Project"}
+            title={selectedItemForEdit ? "Edit Blog" : "Add Blog"}
             onCancel={() => {
               setShowAddEditModel(false)
               setSelectedItemForEdit(null)
             }}
 
           >
-            <Form initialValues={{ selectedItemForEdit } || {}} layout='vertical' onFinish={submitHandler}>
+            <Form initialValues={selectedItemForEdit} layout='vertical' onFinish={submitHandler}>
               <Form.Item name="image" label="Image">
                 <Upload beforeUpload={() => false} maxCount={1}>
                   <Button>Select Image</Button>

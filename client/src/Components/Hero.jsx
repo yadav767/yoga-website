@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="hero-content">
         <div className={`hero-text ${isVisible ? 'fade-in' : ''}`}>
           <div className="hero-badge">Certified Yoga Instructor</div>
-          <h1 className="hero-title">Rahul Shivshankar Yadav</h1>
+          {/* <h1 className="hero-title">Rahul Shivshankar Yadav</h1> */}
           <p className="hero-subtitle">"{intro.thought1}"</p>
           <p className="hero-quote">"{intro.thought2}"</p>
           <div className="hero-cta">

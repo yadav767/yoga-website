@@ -1,5 +1,6 @@
-const { introModel, aboutModel, storyModel, techniqueModel, experienceModel, nutritionModel, blogModel } = require("../models/yoga.model")
+const { introModel, aboutModel, storyModel, techniqueModel, experienceModel, nutritionModel, blogModel, planModel } = require("../models/yoga.model")
 const { v4: uuidv4 } = require('uuid');
+const formModel = require("../models/form.model")
 const uploadFile = require("../services/storage.service")
 
 
@@ -13,6 +14,8 @@ async function getAllData(req, res) {
         const experiences = await experienceModel.find();
         const nutritions = await nutritionModel.find();
         const blogs = await blogModel.find();
+        const prices = await planModel.find();
+        const forms = await formModel.find();
 
         res.status(200).json({
             intros,
@@ -21,7 +24,9 @@ async function getAllData(req, res) {
             techniques,
             experiences,
             nutritions,
-            blogs
+            blogs,
+            prices,
+            forms
         })
     } catch (error) {
         res.status(500).send(error)
@@ -201,7 +206,6 @@ async function updatedBlogController(req, res) {
 async function createBlogController(req, res) {
     const { heading, paragraph, details } = req.body
     const image = req.file
-
     try {
         let url = null
         let Blog = null
@@ -212,10 +216,11 @@ async function createBlogController(req, res) {
                 url, heading, paragraph, details
             })
         } else {
-            Blog = await blogModel.findOneAndUpdate({
-                heading, paragraph, details, url
+            Blog = await blogModel.create({
+                heading, paragraph, details
             })
         }
+        console.log(Blog);
         res.status(200).send({
             data: Blog,
             success: true,
@@ -242,10 +247,22 @@ async function deleteBlogController(req, res) {
 //create experience controller
 async function createExperienceController(req, res) {
     const { title, period, description } = req.body
+    const image = req.file
     try {
-        const experience = await experienceModel.create({
-            title, period, description
-        })
+        let url = null
+        let experience = null
+        if (image) {
+            const response = await uploadFile(image.buffer, uuidv4())
+            url = response.url
+            experience = await experienceModel.create({
+                title, period, description, certificate: url
+            })
+        } else {
+            experience = await experienceModel.create({
+                title, period, description
+            })
+        }
+
         res.status(200).send({
             data: experience,
             success: true,
@@ -258,20 +275,41 @@ async function createExperienceController(req, res) {
 
 //update experience controller
 async function updateExperienceController(req, res) {
+
     const { title, period, description, _id } = req.body
+    const image = req.file
+
+
     try {
-        const experience = await experienceModel.findOneAndUpdate({ _id: _id }, {
-            title, period, description
-        })
+        let url = null
+        let experience = null
+        if (image) {
+            const response = await uploadFile(image.buffer, uuidv4())
+            url = response.url
+            experience = await experienceModel.findOneAndUpdate({ _id: _id }, {
+                title, period, description, certificate: url
+            }, {
+                returnDocument: "after"
+            })
+        } else {
+            experience = await experienceModel.findOneAndUpdate({ _id: _id }, {
+                title, period, description
+            }, {
+                returnDocument: "after"
+            })
+        }
+
         res.status(200).send({
             data: experience,
             success: true,
             message: "Experience updated  successfully !"
         })
+
     } catch (error) {
         res.status(500).send(error)
     }
 }
+
 
 //Delete experience controller
 async function deleteExperienceController(req, res) {
@@ -281,6 +319,55 @@ async function deleteExperienceController(req, res) {
         res.status(200).send({
             success: true,
             message: "Experience deleted successfully !"
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+//Update price controller
+async function updatePriceController(req, res) {
+    const { title, price, features, popular, _id } = req.body
+    try {
+        const updatedPlan = await planModel.findOneAndUpdate({ _id: _id }, {
+            title, price, features, popular
+        }, { returnDocument: "after" })
+        res.status(200).send({
+            data: updatedPlan,
+            success: true,
+            message: "Plan Updated successfully !"
+        })
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+//update form status controller
+async function updateFormStatusController(req, res) {
+    const { _id, isDone } = req.body
+    try {
+        const updatedForm = await formModel.findOneAndUpdate({ _id: _id }, {
+            isDone
+        }, { returnDocument: "after" })
+        res.status(200).send({
+            data: updatedForm,
+            success: true,
+            message: "Form status Updated successfully !"
+        })
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+//delete form controller
+async function deleteFormController(req, res) {
+    const { _id } = req.body
+    try {
+        await formModel.findOneAndDelete({ _id })
+        res.status(200).send({
+            success: true,
+            message: "Form deleted successfully !"
         })
     } catch (error) {
         res.status(500).send(error)
@@ -300,5 +387,8 @@ module.exports = {
     createBlogController,
     createExperienceController,
     updateExperienceController,
-    deleteExperienceController
+    deleteExperienceController,
+    updatePriceController,
+    updateFormStatusController,
+    deleteFormController
 }

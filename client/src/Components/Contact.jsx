@@ -1,5 +1,5 @@
 import React, { useState, } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Phone, Mail, Send } from 'lucide-react';
 import { message } from 'antd'
@@ -8,25 +8,69 @@ import axios from 'axios';
 
 const Contact = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phoneNumber: '',
     message: '',
-    plan: ''
+    plan: location.state?.selectedPlan || ''
   });
   const [successMessage, setSuccessMessage] = useState('');
 
+
+  //Form validation function
+  const validate = () => {
+    if (!formData.fullName.trim()) {
+      message.error("Please enter your full name!")
+      return false
+    }
+    if (!formData.email.trim()) {
+      message.error("Please enter your email!")
+      return false
+    }
+    // email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      message.error("Please enter a valid email address!")
+      return false
+    }
+    if (!formData.phoneNumber.trim()) {
+      message.error("Please enter your phone number!")
+      return false
+    }
+    // phone number format check
+    const phoneRegex = /^[0-9]{10}$/
+    if (!phoneRegex.test(formData.phoneNumber)) {
+      message.error("Please enter a valid 10 digit phone number!")
+      return false
+    }
+    if (!formData.plan) {
+      message.error("Please select a service!")
+      return false
+    }
+    if (!formData.message.trim()) {
+      message.error("Please enter your message!")
+      return false
+    }
+    if (formData.message.trim().length < 10) {
+      message.error("Message must be at least 10 characters!")
+      return false
+
+    }
+    return true
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission
+    if(!validate()) return 
     try {
-      const response = await axios.post("https://yoga-hq9u.onrender.com/api/form/submit", formData)
+      const response = await axios.post("http://localhost:3000/api/form/submit", formData)
       if (response.data.status) {
         message.success(response.data.message)
         setFormData({ fullName: '', email: '', phoneNumber: '', message: '', plan: '' });
         setSuccessMessage('Thanks for contacting us the message is sent to the instructor !');
-        
+
         setTimeout(() => {
           setSuccessMessage('');
         }, 3000);
@@ -51,10 +95,9 @@ const Contact = () => {
     <section id="contact" className="contact-section">
       <div className="container">
         <div className="section-header centered">
-          <h2 className="section-title">Ready to Offer Your Clients a Truly Transformative Yoga Experience?</h2>
+          <h2 className="section-title">Transform Your Mind, Body & Soul Through Authentic Yoga</h2>
           <p className="section-description">
-            Contact me to discuss how we can work together for your clients' wellbeing. Let's create a partnership
-            that brings comprehensive, holistic wellness to those who need it most.
+            Whether you're a beginner or an experienced practitioner, I'm here to guide you every step of the way. Reach out and let's start your wellness journey together.
           </p>
         </div>
 
@@ -82,7 +125,7 @@ const Contact = () => {
               <div className="step">
                 <div className="step-number">1</div>
                 <h4>Schedule Consultation</h4>
-                <p>Let's explore how we can serve your clients together</p>
+                <p>Let's find the perfect yoga practice tailored just for you</p>
               </div>
 
               <div className="step">

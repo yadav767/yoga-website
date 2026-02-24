@@ -28,16 +28,15 @@ const formSchema = new mongoose.Schema({
     },
     plan: {
         type: String,
-        enum: [
-            "Personal 1-on-1 Sessions",
-            "Group Classes",
-            "Corporate Wellness Programs",
-        ],
-        default: "Corporate Wellness Programs",
+        required:true
     },
     message: {
         type: String,
         required: true
+    },
+    isDone:{
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

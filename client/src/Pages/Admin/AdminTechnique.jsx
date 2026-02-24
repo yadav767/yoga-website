@@ -16,12 +16,12 @@ const AdminTechnique = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-technique", { ...values, image, _id: selectedItemForEdit._id }, {
+      const response = await axios.post("http://localhost:3000/api/yoga/update-technique", { ...values, image, _id: selectedItemForEdit._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
       })
-      dispatch(hideLoading())
+
       if (response.data.success) {
         message.success(response.data.message)
         setShowAddEditModel(false);
@@ -29,6 +29,7 @@ const AdminTechnique = () => {
         dispatch(hideLoading())
         setSelectedItemForEdit(null)
       } else {
+        dispatch(hideLoading())
         message.error("Failed to update technique !")
       }
     } catch (error) {
@@ -66,7 +67,7 @@ const AdminTechnique = () => {
           <Modal
             footer={null}
             open={showAddEditModel}
-            title={selectedItemForEdit ? "Edit Project" : "Add Project"}
+            title={selectedItemForEdit ? "Edit Technique" : "Add Technique"}
             onCancel={() => {
               setShowAddEditModel(false)
               setSelectedItemForEdit(null)

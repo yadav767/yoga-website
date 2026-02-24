@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { SquareMousePointer } from 'lucide-react'
 
 const Experience = () => {
   const { data } = useSelector((state) => state.root)
@@ -56,7 +57,12 @@ const Experience = () => {
             <div key={index} className="timeline-item">
               <div className="timeline-marker"></div>
               <div className="timeline-content">
-                <h3>{exp.title}</h3>
+                <div className='flex items-center gap-3'>
+                  <h3>{exp.title} </h3>
+                  {exp.certificate && (
+                    <a className='cursor-pointer active:scale-93 transition-all' href={exp.certificate}><SquareMousePointer size={17} /></a>
+                  )}
+                </div>
                 <span className="timeline-period">{exp.period}</span>
                 <p>{exp.description}</p>
               </div>

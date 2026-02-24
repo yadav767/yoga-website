@@ -29,7 +29,7 @@ const ClientBenefits = () => {
     <section className="benefits-section">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Value I Provide to Your Clients</h2>
+          <h2 className="section-title">Value I provide to my Clients</h2>
           <p className="section-description">
             A complete transformation addressing body, mind, and spirit through evidence-based yoga practices and ancient wisdom.
           </p>

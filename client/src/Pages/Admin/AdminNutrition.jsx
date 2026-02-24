@@ -15,8 +15,7 @@ const AdminNutrition = () => {
   const submitHandler = async (values) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-nutrition", { ...values, _id: selectedItemForEdit._id })
-    dispatch(hideLoading())
+      const response = await axios.post("http://localhost:3000/api/yoga/update-nutrition", { ...values, _id: selectedItemForEdit._id })
     if (response.data.success) {
       message.success(response.data.message)
       setShowAddEditModel(false);
@@ -25,6 +24,8 @@ const AdminNutrition = () => {
       setSelectedItemForEdit(null)
     } else {
       message.error("Failed to update nutrition !")
+    dispatch(hideLoading())
+
     }
   } catch (error) {
     dispatch(hideLoading())
@@ -58,7 +59,7 @@ return (
         <Modal
           footer={null}
           open={showAddEditModel}
-          title={selectedItemForEdit ? "Edit Project" : "Add Project"}
+          title={selectedItemForEdit ? "Edit Nutrition" : "Add Nutrition"}
           onCancel={() => {
             setShowAddEditModel(false)
             setSelectedItemForEdit(null)

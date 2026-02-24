@@ -11,7 +11,7 @@ const Login = () => {
         const username = e.target.username.value
         const password = e.target.password.value
         try {
-            const response = await axios.post("https://yoga-hq9u.onrender.com/api/auth/login", { username, password }, {
+            const response = await axios.post("http://localhost:3000/api/auth/login", { username, password }, {
                 withCredentials: true // sends cookies
             });
 
@@ -36,7 +36,7 @@ const Login = () => {
                 <form className="space-y-4" onSubmit={submitHandler}>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
-                        <input
+                        <input required
                             name="username"
                             type="text"
                             placeholder="Enter your username"
@@ -45,8 +45,9 @@ const Login = () => {
                     </div>
 
                     <div>
+                
                         <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input
+                        <input required
                             name="password"
                             type="password"
                             placeholder="Enter your password"

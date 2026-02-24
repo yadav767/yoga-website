@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <Leaf size={32} />
-            <h3>Yoga By Rahul</h3>
+            <h3>Evolve With Rahul</h3>
             <p>Transforming Lives Through Ancient Wisdom and Modern Understanding</p>
           </div>
           
@@ -29,7 +29,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; 2026 Yoga By Rahul. All rights reserved.</p>
+          <p>&copy; 2026 Evolve With Rahul. All rights reserved.</p>
         </div>
       </div>
     </footer>

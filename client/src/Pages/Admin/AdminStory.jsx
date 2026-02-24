@@ -11,17 +11,19 @@ const AdminStory = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-hq9u.onrender.com/api/yoga/update-story", { ...values, image, _id: story._id }, {
+      const response = await axios.post("http://localhost:3000/api/yoga/update-story", { ...values, image, _id: story._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
       })
-      dispatch(hideLoading())
+      
       if (response.data.success) {
+        dispatch(hideLoading())
         message.success(response.data.message)
         dispatch(setReloadData(true))
       } else {
         message.error("Failed to update Story !")
+        dispatch(hideLoading())
       }
     } catch (error) {
       dispatch(hideLoading())

@@ -1,6 +1,6 @@
 const express = require("express")
 const multer = require("multer")
-const { getAllData, updateIntroController, updateAboutController, updateStoryController, updateTechniqueController, updateNutritionController, updatedBlogController, createBlogController, deleteBlogController, createExperienceController, updateExperienceController, deleteExperienceController } = require("../controllers/yoga.controller")
+const { getAllData, updateIntroController, updateAboutController, updateStoryController, updateTechniqueController, updateNutritionController, updatedBlogController, createBlogController, deleteBlogController, createExperienceController, updateExperienceController, deleteExperienceController, updatePriceController, updateFormStatusController, deleteFormController } = require("../controllers/yoga.controller")
 
 const   router = express.Router()
 
@@ -36,13 +36,22 @@ router.post("/add-blog", upload.single("image"), createBlogController)
 router.post("/delete-blog", deleteBlogController)
 
 //create experience
-router.post("/add-experience",createExperienceController)
+router.post("/add-experience",upload.single("image"),createExperienceController)
 
 //update experience
-router.post("/update-experience",updateExperienceController)
+router.post("/update-experience",upload.single("image"),updateExperienceController)
 
 //Delete experience
 router.post("/delete-experience",deleteExperienceController)
 
+//update price
+router.post("/update-price",updatePriceController)
+
+
+//update form status
+router.post("/mark-done",updateFormStatusController)
+
+//delete form
+router.post("/delete-user",deleteFormController)
 
 module.exports = router

@@ -57,6 +57,9 @@ const techniqueSchema = new mongoose.Schema({
 })
 
 const experienceSchema = new mongoose.Schema({
+    certificate:{
+        type:String,
+    },
     title: {
         type: String,
         required: true
@@ -107,6 +110,26 @@ const blogSchema=new mongoose.Schema({
     
 })
 
+
+const planSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+  },
+  features: {
+    type: [String],
+    required: true,
+  },
+  popular:{
+    type:Boolean,
+    default:false
+  }
+}, { timestamps: true });
+
 const introModel=mongoose.model("intro",introSchema)
 const aboutModel=mongoose.model("about",aboutSchema)
 const storyModel=mongoose.model("story",storySchema)
@@ -114,9 +137,10 @@ const techniqueModel=mongoose.model("technique",techniqueSchema)
 const experienceModel=mongoose.model("experience",experienceSchema)
 const nutritionModel=mongoose.model("nutrition",nutritionSchema)
 const blogModel=mongoose.model("blog",blogSchema)
+const planModel=mongoose.model("plan",planSchema)
 
 
 module.exports={
-    introModel,aboutModel,storyModel,techniqueModel,experienceModel,nutritionModel,blogModel
+    introModel,aboutModel,storyModel,techniqueModel,experienceModel,nutritionModel,blogModel,planModel
 }
 

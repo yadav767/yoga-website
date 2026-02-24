@@ -1,41 +1,17 @@
 import { ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Offerings = () => {
-  const offerings = [
-    {
-      title: "Personal 1-on-1 Sessions",
-      price: "Starting from ₹6,000/month",
-      features: [
-        "Customized practice tailored to your specific health goals and physical condition",
-        "Flexible scheduling to fit your lifestyle",
-        "Ideal for beginners, individuals with specific injuries, or those seeking profound personal growth",
-        "Deep dive into asanas, pranayama, and meditation"
-      ]
-    },
-    {
-      title: "Group Classes",
-      price: "Starting from ₹3,000/month per person",
-      features: [
-        "Engaging sessions in a supportive community environment",
-        "Variety of yoga styles offered, including Hatha and Ashtanga",
-        "Opportunities for shared learning and motivation",
-        "Connect with like-minded individuals on their wellness journey"
-      ],
-      popular: true
-    },
-    {
-      title: "Corporate Wellness Programs",
-      price: "Custom Packages Available",
-      features: [
-        "Tailored yoga and mindfulness sessions for your employees",
-        "Enhance team well-being, reduce stress, and boost productivity",
-        "On-site or virtual options available",
-        "Promote a culture of health and resilience within your organization"
-      ]
-    }
-  ];
+  const navigate = useNavigate()
+  const { data } = useSelector((state) => state.root)
+  const offerings = data?.prices
+
+
+  const handleSubmit = (title) => {
+    navigate("/contact", { state: { selectedPlan: title } })
+  }
+
 
   return (
     <section className="offerings-section">
@@ -60,7 +36,7 @@ const Offerings = () => {
                   <li key={idx}><ChevronRight size={16} />{feature}</li>
                 ))}
               </ul>
-              <Link to="/contact" className="btn-offering">Get Started</Link>
+              <button onClick={() => handleSubmit(offering.title)} className="btn-offering">Get Started</button>
             </div>
           ))}
         </div>
