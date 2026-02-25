@@ -1,41 +1,48 @@
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,  
+    secure: true,
+    auth: {
+        user: process.env.USER_GMAIL,
+        pass: process.env.APP_PASSWORD
+    }
+});
 
-const sendEmail = async (to, subject, html) => {
-  try {
-    const info = await resend.emails.send({
-      from: `Evolve With Rahul <${process.env.USER_GMAIL}>`,
-      to,
-      subject,
-      html
-    });
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
+// Verify the connection configuration
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('Error connecting to email server:', error);
+    } else {
+        console.log('Email server is ready to send messages');
+    }
+});
+
 
 // Function to send email
-// const sendEmail = async (to, subject, text, html) => {
-//   try {
-//     const info = await transporter.sendMail({
-//       from: `"Evolve With Rahul" <${process.env.USER_GMAIL}>`, // sender address
-//       to, // list of receivers
-//       subject, // Subject line
-//       text, // plain text body  
-//       html, // html body
-//     });
-
-//   } catch (error) {
-//     
-//   }
-// };
+const sendEmail = async (to, subject, text, html) => {
+    try {
+        const info = await transporter.sendMail({
+            from: `"Evolve With Rahul" <${process.env.USER_GMAIL}>`, // sender address
+            to, // list of receivers
+            subject, // Subject line
+            text, // plain text body  
+            html, // html body
+        });
+        console.log(info);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 
 function sendEmailToUser(formData) {
-  const to = formData.email
-  const subject = "Welcome to Evolve With Rahul ";
-  const text = `
+    const to = formData.email
+    const subject = "Welcome to Evolve With Rahul ";
+    const text = `
     Welcome to Evolve With Rahul!
 
     Dear ${formData.fullName},
@@ -50,7 +57,7 @@ function sendEmailToUser(formData) {
     Regards,
     Evolve With Rahul Team
 `;
-  const html = `
+    const html = `
 <div style="font-family: Arial, sans-serif; background:#f4f8f7; padding:30px;">
   
   <div style="max-width:600px; margin:auto; background:white; border-radius:10px; padding:30px;">
@@ -92,14 +99,14 @@ function sendEmailToUser(formData) {
 </div>
 `;
 
-  sendEmail(to, subject, text, html)
+    sendEmail(to, subject, text, html)
 
 }
 
 function sendEmailToInstructor(formData) {
-  const to = "yyadavrrahul@gmail.com"
-  const subject = " New Yoga Registration";
-  const text = `
+    const to = "yyadavrrahul@gmail.com"
+    const subject = " New Yoga Registration";
+    const text = `
         New Yoga Registration Received
 
         A new user has registered on Evolve With Rahul website.
@@ -116,7 +123,7 @@ function sendEmailToInstructor(formData) {
 
         Evolve With Rahul System
         `;
-  const html = `
+    const html = `
         <div style="font-family: Arial, sans-serif; background:#f4f8f7; padding:30px;">
   
         <div style="max-width:650px; margin:auto; background:white; border-radius:12px; padding:30px;">
@@ -160,7 +167,7 @@ function sendEmailToInstructor(formData) {
   </div>
 </div>
 `;
-  sendEmail(to, subject, text, html)
+    sendEmail(to, subject, text, html)
 
 }
 

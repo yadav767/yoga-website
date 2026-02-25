@@ -65,7 +65,7 @@ const Contact = () => {
     // Handle form submission
     if(!validate()) return 
     try {
-      const response = await axios.post("https://yoga-website-sue4.onrender.com/api/form/submit", formData)
+      const response = await axios.post("http://localhost:3000/api/form/submit", formData)
       if (response.data.status) {
         message.success(response.data.message)
         setFormData({ fullName: '', email: '', phoneNumber: '', message: '', plan: '' });
