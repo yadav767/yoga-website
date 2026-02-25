@@ -9,7 +9,7 @@ const app = express()
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin: "http://localhost:5173", // your React app URL (Vite default)
+    origin: ["http://localhost:5173", "https://yoga-website-delta-nine.vercel.app"], // your React app URL (Vite default)
     credentials: true // required for cookies to work
 }))
 
