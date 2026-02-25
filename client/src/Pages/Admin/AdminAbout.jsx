@@ -27,7 +27,7 @@ const AdminAbout = () => {
       if (image) {
         formData.append("image", image)
       }
-      const response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/update-about", formData, {
+      const response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/update-about", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
@@ -55,7 +55,7 @@ const AdminAbout = () => {
       const updatedAchievements = achievements.map((a, idx) =>
         idx === selectedItemForEdit.idx ? { ...a, ...values } : a
       )
-      const response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/update-about", {
+      const response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/update-about", {
         _id: abouts._id,
         para: abouts.para,
         achievement: updatedAchievements

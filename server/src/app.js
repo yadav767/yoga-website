@@ -5,20 +5,24 @@ const userRouter = require("./routes/user.route")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const app = express()
+const path = require("path")
 
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:5173", "https://yoga-website-delta-nine.vercel.app"], // your React app URL (Vite default)
+    origin: ["http://localhost:5173", "https://yoga-website-sue4.onrender.com"], // your React app URL (Vite default)
     credentials: true // required for cookies to work
 }))
 
 
+app.use(express.static(path.join(__dirname, '../public')));
 app.use("/api/form", formRouter)
 app.use("/api/yoga", yogaRouter)
 app.use("/api/auth", userRouter)
 
-app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('*name', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/index.html'))
+})
 
 app.get("/", (req, res) => {
     res.send("Server is live.....");

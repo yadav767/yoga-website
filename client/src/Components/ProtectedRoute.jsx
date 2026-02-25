@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     const [auth, setAuth] = useState(null); 
 
     useEffect(() => {
-        axios.get("https://yoga-website-delta-nine.vercel.app/api/auth/check-auth", { withCredentials: true })
+        axios.get("https://yoga-website-sue4.onrender.com/api/auth/check-auth", { withCredentials: true })
             .then(res => setAuth(res.data.authenticated))
             .catch(() => {
                 setAuth(false)

@@ -26,7 +26,7 @@ const App = () => {
   const getYogaData = async () => {
     try {
       dispatch(setLoading())
-      const response = await axios.get("https://yoga-website-delta-nine.vercel.app/api/yoga/get-all-data")
+      const response = await axios.get("https://yoga-website-sue4.onrender.com/api/yoga/get-all-data")
       dispatch(setYogaData(response.data))
       dispatch(setReloadData())
       dispatch(hideLoading())

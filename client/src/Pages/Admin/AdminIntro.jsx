@@ -12,7 +12,7 @@ const AdminIntro = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
+      const response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/update-intro", { ...values, image, _id: intro._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }

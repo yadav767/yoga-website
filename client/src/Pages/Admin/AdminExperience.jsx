@@ -29,11 +29,11 @@ const AdminExperience = () => {
       let response
       if (selectedItemForEdit) {
         formData.append("_id", selectedItemForEdit._id);
-        response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/update-experience", formData, {
+        response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/update-experience", formData, {
           headers: { "Content-Type": "multipart/form-data" }
         })
       } else {
-        response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/add-experience", formData, {
+        response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/add-experience", formData, {
           headers: { "Content-Type": "multipart/form-data" }
         })
       }
@@ -58,7 +58,7 @@ const AdminExperience = () => {
   const onDelete = async (item) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("https://yoga-website-delta-nine.vercel.app/api/yoga/delete-experience", { _id: item._id })
+      const response = await axios.post("https://yoga-website-sue4.onrender.com/api/yoga/delete-experience", { _id: item._id })
       dispatch(hideLoading())
       if (response.data.success) {
         message.success(response.data.message)
