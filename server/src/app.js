@@ -18,11 +18,12 @@ app.use("/api/form", formRouter)
 app.use("/api/yoga", yogaRouter)
 app.use("/api/auth", userRouter)
 
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get("/", (req, res) => {
     res.send("Server is live.....");
     console.log("server is live");
-})  
+})
 
 
 module.exports = app
