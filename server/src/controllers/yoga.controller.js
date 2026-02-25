@@ -220,7 +220,6 @@ async function createBlogController(req, res) {
                 heading, paragraph, details
             })
         }
-        console.log(Blog);
         res.status(200).send({
             data: Blog,
             success: true,

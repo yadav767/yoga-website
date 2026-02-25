@@ -3,7 +3,6 @@ const { sendEmailToUser, sendEmailToInstructor } = require("../services/mail.ser
 
 async function submitFormController(req, res) {
     const { fullName, email, phoneNumber, message, plan } = req.body
-    console.log(req.body);
     try {
         const newUser = await formModel.create({
             fullName, email, phoneNumber, message, plan
@@ -14,7 +13,6 @@ async function submitFormController(req, res) {
             status: true,
             newUser
         })
-        console.log(newUser);
         await sendEmailToInstructor(newUser)
         await sendEmailToUser(newUser)
     } catch (error) {

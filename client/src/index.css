@@ -87,7 +87,7 @@ h6 {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -201,6 +201,8 @@ h6 {
   left: 0;
   width: 100%;
   height: 100%;
+
+  object-position: center;
   object-fit: cover;
   opacity: 0.8;
   z-index: 0;
@@ -1036,74 +1038,151 @@ section {
   color: var(--text-light);
 }
 
+
 /* Blog Section */
 .blog-section {
   background: var(--bg-light);
 }
 
+/* Horizontal scrollable grid */
 .blog-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 2.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1.5rem;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
 }
 
+.blog-grid:active {
+  cursor: grabbing;
+}
+
+.blog-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.blog-grid::-webkit-scrollbar-track {
+  background: var(--bg-light);
+  border-radius: 10px;
+}
+
+.blog-grid::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Blog Card - NO hover transform */
 .blog-card {
-  background: white;
+  min-width: 370px;
+  max-width: 370px;
+  height: 600px;            
+  flex-shrink: 0;
+  scroll-snap-align: start;
   border-radius: 20px;
-  overflow: hidden;
   box-shadow: 0 10px 30px var(--shadow);
-  transition: all 0.3s ease;
+  perspective: 1200px;      /* flip perspective on card itself */
+  overflow: hidden;
 }
 
-.blog-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px var(--shadow-lg);
-}
-
-/* Flip card inner layout */
-.blog-card {
-  perspective: 1200px;
-}
+/* Flip card inner */
 .card-inner {
   position: relative;
   width: 100%;
+  height: 100%;             /* must be 100% to fill card */
   transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
 }
-.card-front,
-.card-back {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  position: relative;
+
+.blog-card.is-flipped .card-inner {
+  transform: rotateY(180deg);
 }
+
+/* Front and back both absolute - same position */
+.card-front,
 .card-back {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
   background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-.blog-card.is-flipped .card-inner {
-  transform: rotateY(180deg);
-}
-.back-content {
-  text-align: left;
-  max-height: 100%;
-  overflow: auto;
 }
 
+/* Front scrollable if content overflows */
+.card-front {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-front::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-front::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.card-front::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Back flipped 180deg */
+.card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.card-back::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.card-back::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Back content */
+.back-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.back-content p {
+  color: var(--text-light);
+  line-height: 1.8;
+  font-size: 1rem;
+  flex: 1;
+}
+
+/* Blog Image - fixed height, won't shrink */
 .blog-image {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: 280px;
+  flex-shrink: 0;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  overflow: hidden;
 }
+
 .blog-image img {
   height: 100%;
   width: 100%;
@@ -1119,8 +1198,13 @@ section {
   color: white;
 }
 
+/* Blog Content */
 .blog-content {
-  padding: 2rem;
+  /* height: 200px; */
+  padding: 3rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .blog-date {
@@ -1129,48 +1213,69 @@ section {
   gap: 0.5rem;
   color: var(--text-light);
   font-size: 0.9rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .blog-content h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
 }
 
 .blog-content p {
   color: var(--text-light);
   line-height: 1.7;
   margin-bottom: 1.5rem;
+  flex: 1;
 }
 
 .blog-link {
   display: inline-flex;
-  /* padding: 1rem 2rem; */
   align-items: center;
   gap: 0.5rem;
   color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   transition: gap 0.3s ease;
-}
-
-.blog-link-back{
-  /* text-align: right; */
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
-  border: none;
-  margin-top: 1rem;
+  margin-top: auto;
 }
 
 .blog-link:hover {
   gap: 1rem;
 }
 
+/* Back button */
+.blog-link-back {
+  margin-top: auto;
+  align-self: flex-end;
+  padding: 10px 24px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.blog-link-back:hover {
+  background: var(--primary-dark);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .blog-card {
+    min-width: 345px;
+    max-width: 300px;
+    height: 560px;
+  }
+
+  .blog-image {
+    height: 250px;
+  }
+}
 /* Contact Section */
 .contact-section {
   background: var(--bg-white);
