@@ -4,7 +4,6 @@ const yogaRouter = require("./routes/yoga.routes")
 const userRouter = require("./routes/user.route")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
-const path = require("path")
 const app = express()
 
 app.use(cookieParser())
@@ -13,7 +12,6 @@ app.use(cors({
     origin: "http://localhost:5173", // your React app URL (Vite default)
     credentials: true // required for cookies to work
 }))
-app.use(express.static(path.join(__dirname, "../public")))
 
 
 app.use("/api/form", formRouter)
