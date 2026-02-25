@@ -22,8 +22,9 @@ app.use("/api/auth", userRouter)
 
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Yoga App API!")
-})
+    res.send("Server is live.....");
+    console.log("server is live");
+})  
 
 
 module.exports = app
