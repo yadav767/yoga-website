@@ -19,7 +19,7 @@ const AdminPricing = () => {
 
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/update-price", payload)
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/update-price", payload)
 
       if (response.data.success) {
         message.success(response.data.message)

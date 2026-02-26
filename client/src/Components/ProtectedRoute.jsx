@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     const [auth, setAuth] = useState(null); 
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/auth/check-auth", { withCredentials: true })
+        axios.get("https://evolve-with-rahul.vercel.app/api/auth/check-auth", { withCredentials: true })
             .then(res => setAuth(res.data.authenticated))
             .catch(() => {
                 setAuth(false)

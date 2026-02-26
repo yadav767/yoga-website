@@ -16,7 +16,7 @@ const AdminTechnique = () => {
     const image = values.image?.file || null
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/update-technique", { ...values, image, _id: selectedItemForEdit._id }, {
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/update-technique", { ...values, image, _id: selectedItemForEdit._id }, {
         headers: {
           "Content-Type": "multipart/form-data",
         }

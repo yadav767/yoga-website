@@ -15,7 +15,7 @@ const AdminNutrition = () => {
   const submitHandler = async (values) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/update-nutrition", { ...values, _id: selectedItemForEdit._id })
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/update-nutrition", { ...values, _id: selectedItemForEdit._id })
     if (response.data.success) {
       message.success(response.data.message)
       setShowAddEditModel(false);

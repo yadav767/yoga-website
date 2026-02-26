@@ -26,7 +26,7 @@ const App = () => {
   const getYogaData = async () => {
     try {
       dispatch(setLoading())
-      const response = await axios.get("http://localhost:3000/api/yoga/get-all-data")
+      const response = await axios.get("https://evolve-with-rahul.vercel.app/api/yoga/get-all-data")
       dispatch(setYogaData(response.data))
       dispatch(setReloadData())
       dispatch(hideLoading())

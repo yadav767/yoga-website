@@ -27,7 +27,7 @@ const AdminAbout = () => {
       if (image) {
         formData.append("image", image)
       }
-      const response = await axios.post("http://localhost:3000/api/yoga/update-about", formData, {
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/update-about", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
@@ -55,7 +55,7 @@ const AdminAbout = () => {
       const updatedAchievements = achievements.map((a, idx) =>
         idx === selectedItemForEdit.idx ? { ...a, ...values } : a
       )
-      const response = await axios.post("http://localhost:3000/api/yoga/update-about", {
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/update-about", {
         _id: abouts._id,
         para: abouts.para,
         achievement: updatedAchievements

@@ -11,7 +11,7 @@ const AdminUserData = () => {
   const handleDone = async (user) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/mark-done", {
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/mark-done", {
         _id: user._id,
         isDone: !user.isDone
       })
@@ -31,7 +31,7 @@ const AdminUserData = () => {
   const onDelete = async (user) => {
     try {
       dispatch(setLoading())
-      const response = await axios.post("http://localhost:3000/api/yoga/delete-user", { _id: user._id })
+      const response = await axios.post("https://evolve-with-rahul.vercel.app/api/yoga/delete-user", { _id: user._id })
       dispatch(hideLoading())
       if (response.data.success) {
         message.success(response.data.message)
